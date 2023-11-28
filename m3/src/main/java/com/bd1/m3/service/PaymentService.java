@@ -28,7 +28,7 @@ public class PaymentService {
 
             callProcedure.execute();
         } catch (Exception e) {
-            throw new RuntimeException("Error when connecting to database.", e);
+            throw new RuntimeException("Error when creating payment.", e);
         }
     }
 
@@ -44,7 +44,7 @@ public class PaymentService {
                 return blob.getBytes(1, (int) blob.length());
             }
         }catch (Exception e) {
-            throw new RuntimeException("Error when connecting to database.", e);
+            throw new RuntimeException("Error when downloading note.", e);
         }
         return null;
     }
@@ -71,8 +71,20 @@ public class PaymentService {
                 paymentResponseDTOList.add(paymentResponseDTO);
             }
         }catch (Exception e) {
-            throw new RuntimeException("Error when connecting to database.", e);
+            throw new RuntimeException("Error finding payments.", e);
         }
         return paymentResponseDTOList;
+    }
+
+    public void delete(Long id) {
+        String query = "delete from payment where id = ? ";
+        Connection c = DatabaseConfig.getConnection();
+        try{
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setLong(1, id);
+            ps.execute();
+        } catch (Exception e) {
+            throw new RuntimeException("Error when deleting payment.", e);
+        }
     }
 }

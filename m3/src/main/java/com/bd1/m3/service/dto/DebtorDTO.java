@@ -1,10 +1,23 @@
 package com.bd1.m3.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class DebtorDTO {
+
+    @JsonIgnore
+    private Long id;
     private String debtorName;
     private String mail;
     private Long phone;
     private Long documentNumber;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getDebtorName() {
         return debtorName;

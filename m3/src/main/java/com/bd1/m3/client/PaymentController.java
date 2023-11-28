@@ -2,10 +2,13 @@ package com.bd1.m3.client;
 
 import com.bd1.m3.service.PaymentService;
 import com.bd1.m3.service.dto.PaymentDTO;
+import com.bd1.m3.service.dto.PaymentResponseDTO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/payment")
@@ -29,7 +32,13 @@ public class PaymentController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<Object> find(){
+    public ResponseEntity<List<PaymentResponseDTO>> find(){
         return ResponseEntity.ok(paymentService.getPayments());
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        paymentService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
